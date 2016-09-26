@@ -1,0 +1,9 @@
+{{contact.name}}
+<button (click)="starContact(contact)">
+  <i class="fa fa-2x"
+    [class.fa-star]="contact.starred"
+    [class.fa-star-o]="!contact.starred"></i>
+</button>
+<button (click)="removeContact(contact)">
+  <i class="fa fa-trash fa-2x"></i>
+</button>

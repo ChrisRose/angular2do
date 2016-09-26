@@ -1,0 +1,7 @@
+<input #contactName />
+<button (click)="add(contactName.value); contactName.value = ''">Add Contact</button>
+<ul class="heroes">
+  <li *ngFor="let contact of contacts">
+    <app-contact [contact]="contact"></app-contact>
+  </li>
+</ul>
