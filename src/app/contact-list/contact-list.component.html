@@ -1,7 +1,8 @@
-<input #contactName />
-<button (click)="add(contactName.value); contactName.value = ''">Add Contact</button>
-<ul class="heroes">
+<input #contactName (keyup.enter)="addContact(contactName.value); contactName.value = ''" />
+<button (click)="addContact(contactName.value); contactName.value = ''">Add Contact</button>
+<ul class="contacts">
   <li *ngFor="let contact of contacts">
-    <app-contact [contact]="contact"></app-contact>
+    <app-contact [contact]="contact" (onRemoveContact)="removeContact($event)"
+    (onStarContact)="starContact($event)"></app-contact>
   </li>
 </ul>

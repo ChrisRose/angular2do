@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactComponent } from './contact/contact.component';
 
+import { ContactStore } from './contact.store';
 import { ContactService } from './contact.service'
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ContactService } from './contact.service'
     HttpModule
   ],
   providers: [
+    ContactStore,
     ContactService
   ],
   bootstrap: [AppComponent]

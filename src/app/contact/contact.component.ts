@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, OnInit, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
 import { ContactService } from '../contact.service';
 import { Contact } from '../contact';
 
@@ -12,17 +12,21 @@ export class ContactComponent implements OnInit {
   @Input()
   contact: Contact;
 
+  @Output()
+  onRemoveContact: EventEmitter = new EventEmitter();
+
+  @Output()
+  onStarContact: EventEmitter = new EventEmitter();
+
   constructor(private contactService: ContactService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   starContact(contact: Contact): void {
-    this.contactService.starContact(contact);
+    this.onStarContact.next(contact);
   }
 
-  removeContact(contact: Contact):void {
-    this.contactService.removeContact(contact);
+  doRemoveContact(contact: Contact) {
+    this.onRemoveContact.next(contact);
   }
-
 }
