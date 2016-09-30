@@ -8,13 +8,15 @@ import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactComponent } from './contact/contact.component';
 
 import { ContactStore } from './contact.store';
-import { ContactService } from './contact.service'
+import { ContactService } from './contact.service';
+import { FilterLinkComponent } from './filter-link/filter-link.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactListComponent,
-    ContactComponent
+    ContactComponent,
+    FilterLinkComponent
   ],
   imports: [
     BrowserModule,

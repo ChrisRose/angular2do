@@ -1,10 +1,9 @@
 // Reducer
-
 import { List } from 'immutable';
-import { IContactAction } from './actions';
-import { Contact as ContactModel} from './contact';
+import { IContactAction } from '../actions';
+import { Contact as ContactModel} from '../contact';
 
-export function reducer(state: Immutable.List<ContactModel> = Immutable.List<ContactModel>(), action: IContactAction) {
+export function reducer(state: List<ContactModel> = List<ContactModel>(), action: IContactAction) {
   switch (action.type) {
     case 'ADD':
       return state.push({

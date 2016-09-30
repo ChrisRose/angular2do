@@ -25,3 +25,10 @@ export function starContact(id: number): IContactAction {
     id
   };
 }
+
+export function setVisibilityFilter (filter) {
+  return {
+    type: 'SET_VISIBILITY_FILTER',
+    filter
+  }
+}

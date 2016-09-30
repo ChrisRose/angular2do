@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService } from '../contact.service';
 import { ContactStore } from '../contact.store';
 import { Contact } from '../contact';
 import { addContact, starContact, removeContact } from '../actions';
+
+const getVisibleContacts = (contacts, filter) => {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return contacts
+    case 'SHOW_STARRED':
+      return contacts.filter(t => t.starred)
+  }
+};
 
 @Component({
   selector: 'app-contact-list',
@@ -11,13 +19,13 @@ import { addContact, starContact, removeContact } from '../actions';
 })
 export class ContactListComponent implements OnInit {
   contactID: number;
-  contacts: <Contacts>[];
+  contacts: Contact[];
 
-  constructor(private contactService: ContactService, private contactStore: ContactStore) {
+  constructor(private contactStore: ContactStore) {
     this.contactID = 0;
 
     this.contactStore.store.subscribe(() => {
-      this.contacts = this.contactStore.contacts;
+      this.contacts = getVisibleContacts(this.contactStore.contacts, this.contactStore.filter);
     });
   }
 
