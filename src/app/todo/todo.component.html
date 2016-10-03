@@ -1,0 +1,11 @@
+<li [class.editing]="editMode">
+  <div class="view">
+    <input type="checkbox"
+           (change)="starTodo(todo)"
+           [(ngModel)]="todo.completed"
+           class="toggle">
+    <label (dblclick)="foo()">{{todo.name}}</label>
+    <button class="destroy" (click)="doRemoveTodo(todo)"></button>
+  </div>
+  <input type="text" class="edit" [(ngModel)]="todo.name" />
+</li>

@@ -1,0 +1,22 @@
+<header class="header">
+  <h1>todos</h1>
+  <form>
+    <input #todoName class="new-todo" placeholder="What needs to be done?"
+    autofocus (keyup.enter)="addTodo(todoName.value); todoName.value = ''" />
+  </form>
+</header>
+<section class="main">
+  <ul class="todo-list">
+    <app-todo *ngFor="let todo of todos" [todo]="todo" (onRemoveTodo)="removeTodo($event)"
+    (onStarTodo)="starTodo($event)"></app-todo>
+  </ul>
+</section>
+<footer class="footer">
+  <span class="todo-count">
+    <strong>{{incompleteCount}}</strong> item left
+  </span>
+  <ul class="filters">
+    <li><app-filter-link filter="">All</app-filter-link></li>
+    <li><app-filter-link filter="completed">Completed</app-filter-link></li>
+  </ul>
+</footer>

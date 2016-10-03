@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ContactStore } from '../contact.store';
+import { TodoStore } from '../todo.store';
 import { setVisibilityFilter } from '../actions';
 
 @Component({
@@ -11,7 +11,7 @@ export class FilterLinkComponent implements OnInit {
   @Input()
   filter: string;
 
-  constructor(private contactStore: ContactStore) {
+  constructor(private TodoStore: TodoStore) {
   }
 
   ngOnInit() {

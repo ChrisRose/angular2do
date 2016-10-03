@@ -3,7 +3,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
-describe('App: Angular2ContactList', () => {
+describe('App: Angular2TodoList', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [

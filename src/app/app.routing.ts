@@ -1,16 +1,16 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ContactListComponent }      from './contact-list/contact-list.component';
+import { TodoListComponent }      from './todo-list/todo-list.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: ContactListComponent
+    component: TodoListComponent
   },
   {
     path: ':filter',
-    component: ContactListComponent
+    component: TodoListComponent
   }
 ];
 

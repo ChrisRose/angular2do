@@ -1,10 +1,10 @@
-export interface IContactAction {
+export interface ITodoAction {
   type: string;
   id: number;
   name?: string;
 }
 
-export function addContact(name: string, id: number): IContactAction {
+export function addTodo(name: string, id: number): ITodoAction {
   return {
     type: 'ADD',
     id,
@@ -12,14 +12,14 @@ export function addContact(name: string, id: number): IContactAction {
   };
 }
 
-export function removeContact(id: number): IContactAction {
+export function removeTodo(id: number): ITodoAction {
   return {
     type: 'REMOVE',
     id
   };
 }
 
-export function starContact(id: number): IContactAction {
+export function starTodo(id: number): ITodoAction {
   return {
     type: 'STAR',
     id

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { reducer as contacts } from './contacts';
+import { reducer as todos } from './todos';
 import { reducer as filter } from './filter';
 
-export const contactsApp = combineReducers({
-  contacts,
+export const todosApp = combineReducers({
+  todos,
   filter
 });

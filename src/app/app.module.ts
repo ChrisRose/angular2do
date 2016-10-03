@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { ContactListComponent } from './contact-list/contact-list.component';
-import { ContactComponent } from './contact/contact.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoComponent } from './todo/todo.component';
 
-import { ContactStore } from './contact.store';
-import { ContactService } from './contact.service';
+import { TodoStore } from './todo.store';
 import { FilterLinkComponent } from './filter-link/filter-link.component'
 
 import { routing } from './app.routing';
@@ -16,8 +15,8 @@ import { routing } from './app.routing';
 @NgModule({
   declarations: [
     AppComponent,
-    ContactListComponent,
-    ContactComponent,
+    TodoListComponent,
+    TodoComponent,
     FilterLinkComponent
   ],
   imports: [
@@ -27,8 +26,7 @@ import { routing } from './app.routing';
     routing
   ],
   providers: [
-    ContactStore,
-    ContactService
+    TodoStore
   ],
   bootstrap: [AppComponent]
 })
