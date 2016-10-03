@@ -1,12 +1,22 @@
-<input #contactName (keyup.enter)="addContact(contactName.value); contactName.value = ''" />
-<button (click)="addContact(contactName.value); contactName.value = ''">Add Contact</button>
-<p>
-  <app-filter-link filter="">Show All</app-filter-link> |
-  <app-filter-link filter="starred">Show Starred</app-filter-link>
-</p>
-<ul class="contacts">
-  <li *ngFor="let contact of contacts">
-    <app-contact [contact]="contact" (onRemoveContact)="removeContact($event)"
+<header class="header">
+  <h1>todos</h1>
+  <form>
+    <input #contactName class="new-todo" placeholder="What needs to be done?"
+    autofocus (keyup.enter)="addContact(contactName.value); contactName.value = ''" />
+  </form>
+</header>
+<section class="main">
+  <ul class="todo-list">
+    <app-contact *ngFor="let contact of contacts" [contact]="contact" (onRemoveContact)="removeContact($event)"
     (onStarContact)="starContact($event)"></app-contact>
-  </li>
-</ul>
+  </ul>
+</section>
+<footer class="footer">
+  <span class="todo-count">
+    <strong>{{incompleteCount}}</strong> item left
+  </span>
+  <ul class="filters">
+    <li><app-filter-link filter="">All</app-filter-link></li>
+    <li><app-filter-link filter="starred">Completed</app-filter-link></li>
+  </ul>
+</footer>

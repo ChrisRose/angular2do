@@ -22,6 +22,7 @@ const getVisibleContacts = (contacts, filter) => {
 export class ContactListComponent implements OnInit {
   contactID: number;
   contacts: Contact[];
+  incompleteCount: number;
 
   constructor(
     private contactStore: ContactStore,
@@ -32,6 +33,7 @@ export class ContactListComponent implements OnInit {
 
     this.contactStore.store.subscribe(() => {
       this.contacts = getVisibleContacts(this.contactStore.contacts, this.contactStore.filter);
+      this.incompleteCount = this.contacts.filter(t => !t.starred).size
     });
   }
 
@@ -48,8 +50,6 @@ export class ContactListComponent implements OnInit {
   }
 
   addContact(contact: string):void {
-    // this.contactService.addContact(contact, this.contactID++);
-    // this.getContacts();
     this.contactStore.dispatch(addContact(contact, this.contactID++));
   }
 
@@ -60,10 +60,4 @@ export class ContactListComponent implements OnInit {
   removeContact(contact: Contact):void {
     this.contactStore.dispatch(removeContact(contact.id));
   }
-
-  // getContacts(): void {
-  //   // this.contactService.getContacts().then(contacts => this.contacts = contacts);
-  //   this.contacts = this.store.contacts;
-  // }
-
 }

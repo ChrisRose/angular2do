@@ -18,6 +18,8 @@ export class ContactComponent implements OnInit {
   @Output()
   onStarContact: EventEmitter = new EventEmitter();
 
+  editMode: boolean = false;
+
   constructor(private contactService: ContactService) { }
 
   ngOnInit() {}
@@ -28,5 +30,10 @@ export class ContactComponent implements OnInit {
 
   doRemoveContact(contact: Contact) {
     this.onRemoveContact.next(contact);
+  }
+
+  foo() {
+    this.editMode = true;
+    console.log(this.contact);
   }
 }

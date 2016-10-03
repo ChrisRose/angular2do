@@ -1,10 +1,11 @@
-{{contact.id}}.&nbsp;
-{{contact.name}}
-<button (click)="starContact(contact)">
-  <i class="fa fa-2x"
-    [class.fa-star]="contact.starred"
-    [class.fa-star-o]="!contact.starred"></i>
-</button>
-<button (click)="doRemoveContact(contact)">
-  <i class="fa fa-trash fa-2x"></i>
-</button>
+<li [class.editing]="editMode">
+  <div class="view">
+    <input type="checkbox"
+           (change)="starContact(contact)"
+           [(ngModel)]="contact.starred"
+           class="toggle">
+    <label (dblclick)="foo()">{{contact.name}}</label>
+    <button class="destroy" (click)="doRemoveContact(contact)"></button>
+  </div>
+  <input type="text" class="edit" [(ngModel)]="contact.name" />
+</li>

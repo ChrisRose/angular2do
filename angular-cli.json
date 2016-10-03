@@ -15,7 +15,8 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css"
+        "styles.css",
+        "todo-mvc.css"
       ],
       "scripts": [
         "../node_modules/redux/dist/redux.js"
