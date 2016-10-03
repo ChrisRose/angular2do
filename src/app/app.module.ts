@@ -11,6 +11,8 @@ import { ContactStore } from './contact.store';
 import { ContactService } from './contact.service';
 import { FilterLinkComponent } from './filter-link/filter-link.component'
 
+import { routing } from './app.routing';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,8 @@ import { FilterLinkComponent } from './filter-link/filter-link.component'
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
   providers: [
     ContactStore,

@@ -1,8 +1,8 @@
 <input #contactName (keyup.enter)="addContact(contactName.value); contactName.value = ''" />
 <button (click)="addContact(contactName.value); contactName.value = ''">Add Contact</button>
 <p>
-  <app-filter-link filter="SHOW_ALL">Show All</app-filter-link> |
-  <app-filter-link filter="SHOW_STARRED">Show Starred</app-filter-link>
+  <app-filter-link filter="">Show All</app-filter-link> |
+  <app-filter-link filter="starred">Show Starred</app-filter-link>
 </p>
 <ul class="contacts">
   <li *ngFor="let contact of contacts">

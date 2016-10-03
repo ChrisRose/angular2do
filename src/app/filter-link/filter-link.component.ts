@@ -17,8 +17,4 @@ export class FilterLinkComponent implements OnInit {
   ngOnInit() {
   }
 
-  filterContacts() {
-    this.contactStore.dispatch(setVisibilityFilter(this.filter));
-  }
-
 }

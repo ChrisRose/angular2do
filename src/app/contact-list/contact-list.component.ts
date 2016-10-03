@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params }   from '@angular/router';
+import { Location }                 from '@angular/common';
 import { ContactStore } from '../contact.store';
 import { Contact } from '../contact';
-import { addContact, starContact, removeContact } from '../actions';
+import { addContact, starContact, removeContact, setVisibilityFilter } from '../actions';
 
 const getVisibleContacts = (contacts, filter) => {
   switch (filter) {
@@ -21,7 +23,11 @@ export class ContactListComponent implements OnInit {
   contactID: number;
   contacts: Contact[];
 
-  constructor(private contactStore: ContactStore) {
+  constructor(
+    private contactStore: ContactStore,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {
     this.contactID = 0;
 
     this.contactStore.store.subscribe(() => {
@@ -30,9 +36,15 @@ export class ContactListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.contactService.addContact('John', this.contactID++);
-    this.contactStore.dispatch(addContact('John', this.contactID++));
-    this.contactStore.dispatch(addContact('Brigitte', this.contactID++));
+    this.route.params.forEach((params: Params) => {
+      let filter = params['filter'] || 'SHOW_ALL';
+      if (filter === 'starred') {
+        filter = 'SHOW_STARRED';
+      } else {
+        filter = 'SHOW_ALL';
+      }
+      this.contactStore.dispatch(setVisibilityFilter(filter));
+    });
   }
 
   addContact(contact: string):void {
