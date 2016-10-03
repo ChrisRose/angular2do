@@ -1,11 +1,16 @@
 <li [class.editing]="editMode">
   <div class="view">
     <input type="checkbox"
-           (change)="starTodo(todo)"
+           (change)="toggleTodo(todo)"
            [(ngModel)]="todo.completed"
            class="toggle">
-    <label (dblclick)="foo()">{{todo.name}}</label>
+    <label (dblclick)="editTodo()">{{todo.name}}</label>
     <button class="destroy" (click)="doRemoveTodo(todo)"></button>
   </div>
-  <input type="text" class="edit" [(ngModel)]="todo.name" />
+  <input type="text"
+         [(ngModel)]="todo.name"
+         (keyup)="cancelEdit($event.keyCode)"
+         (keyup.enter)="saveTodo(todo)"
+         (focusout)="saveTodo(todo)"
+         class="edit">
 </li>

@@ -16,7 +16,7 @@ export class TodoComponent implements OnInit {
   onRemoveTodo: EventEmitter = new EventEmitter();
 
   @Output()
-  onStarTodo: EventEmitter = new EventEmitter();
+  onToggleTodo: EventEmitter = new EventEmitter();
 
   editMode: boolean = false;
 
@@ -24,8 +24,8 @@ export class TodoComponent implements OnInit {
 
   ngOnInit() {}
 
-  starTodo(todo: Todo): void {
-    this.onStarTodo.next(todo);
+  toggleTodo(todo: Todo): void {
+    this.onToggleTodo.next(todo);
   }
 
   doRemoveTodo(todo: Todo) {

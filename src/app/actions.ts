@@ -1,3 +1,5 @@
+import { Todo } from './todo';
+
 export interface ITodoAction {
   type: string;
   id: number;
@@ -19,9 +21,17 @@ export function removeTodo(id: number): ITodoAction {
   };
 }
 
-export function starTodo(id: number): ITodoAction {
+export function saveTodo(name: string, id: number): ITodoAction {
   return {
-    type: 'STAR',
+    type: 'SAVE',
+    id,
+    name
+  };
+}
+
+export function toggleTodo(id: number): ITodoAction {
+  return {
+    type: 'TOGGLE',
     id
   };
 }

@@ -1,14 +1,14 @@
 <header class="header">
   <h1>todos</h1>
-  <form>
-    <input #todoName class="new-todo" placeholder="What needs to be done?"
-    autofocus (keyup.enter)="addTodo(todoName.value); todoName.value = ''" />
-  </form>
+  <app-add-todo (onAddTodo)="addTodo($event)"></app-add-todo>
 </header>
 <section class="main">
   <ul class="todo-list">
-    <app-todo *ngFor="let todo of todos" [todo]="todo" (onRemoveTodo)="removeTodo($event)"
-    (onStarTodo)="starTodo($event)"></app-todo>
+    <app-todo *ngFor="let todo of todos" [todo]="todo"
+              (onRemoveTodo)="removeTodo($event)"
+              (onToggleTodo)="toggleTodo($event)"
+              (onSaveTodo)="saveTodo($event)">
+    </app-todo>
   </ul>
 </section>
 <footer class="footer">

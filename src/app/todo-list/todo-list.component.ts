@@ -3,7 +3,7 @@ import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 import { TodoStore } from '../todo.store';
 import { Todo } from '../todo';
-import { addTodo, starTodo, removeTodo, setVisibilityFilter } from '../actions';
+import { addTodo, toggleTodo, removeTodo, saveTodo, setVisibilityFilter } from '../actions';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -41,7 +41,7 @@ export class TodoListComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       let filter = params['filter'] || 'SHOW_ALL';
       if (filter === 'completed') {
-        filter = 'SHOW_completed';
+        filter = 'SHOW_COMPLETED';
       } else {
         filter = 'SHOW_ALL';
       }
@@ -53,8 +53,12 @@ export class TodoListComponent implements OnInit {
     this.TodoStore.dispatch(addTodo(todo, this.todoID++));
   }
 
-  starTodo(todo: Todo): void {
-    this.TodoStore.dispatch(starTodo(todo.id));
+  toggleTodo(todo: Todo): void {
+    this.TodoStore.dispatch(toggleTodo(todo.id));
+  }
+
+  saveTodo(todo: Todo):void {
+    this.TodoStore.dispatch(saveTodo(todo.name, todo.id));
   }
 
   removeTodo(todo: Todo):void {

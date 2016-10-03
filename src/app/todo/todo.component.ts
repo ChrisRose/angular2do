@@ -15,24 +15,45 @@ export class TodoComponent implements OnInit {
   onRemoveTodo: EventEmitter = new EventEmitter();
 
   @Output()
-  onStarTodo: EventEmitter = new EventEmitter();
+  onToggleTodo: EventEmitter = new EventEmitter();
+
+  @Output()
+  onSaveTodo: EventEmitter = new EventEmitter();
 
   editMode: boolean = false;
 
+  todoName: string;
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.todoName = this.todo.name;
+  }
 
-  starTodo(todo: Todo): void {
-    this.onStarTodo.next(todo);
+  toggleTodo(todo: Todo): void {
+    this.onToggleTodo.next(todo);
   }
 
   doRemoveTodo(todo: Todo) {
     this.onRemoveTodo.next(todo);
   }
 
-  foo() {
+  editTodo() {
+    this.todoName = this.todo.name;
     this.editMode = true;
-    console.log(this.todo);
+  }
+
+  cancelEdit(keyCode: number) {
+    const ESCAPE_KEY = 27;
+    if (keyCode === ESCAPE_KEY) {
+      this.editMode = false;
+      this.todo.name = this.todoName;
+    }
+  }
+
+  saveTodo(todo: Todo) {
+    this.onSaveTodo.next(todo);
+    this.todoName = todo.name;
+    this.editMode = false;
   }
 }

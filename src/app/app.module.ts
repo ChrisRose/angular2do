@@ -11,13 +11,15 @@ import { TodoStore } from './todo.store';
 import { FilterLinkComponent } from './filter-link/filter-link.component'
 
 import { routing } from './app.routing';
+import { AddTodoComponent } from './add-todo/add-todo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
     TodoComponent,
-    FilterLinkComponent
+    FilterLinkComponent,
+    AddTodoComponent
   ],
   imports: [
     BrowserModule,

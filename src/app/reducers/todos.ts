@@ -13,7 +13,15 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
       });
     case 'REMOVE':
       return state.delete(findIndexById(action));
-    case 'STAR':
+    case 'SAVE':
+      return (<any>state).update(findIndexById(action), (todo) => {
+        return {
+          id: todo.id,
+          name: todo.name,
+          completed: todo.completed
+        };
+      });
+    case 'TOGGLE':
       return (<any>state).update(findIndexById(action), (todo) => {
         return {
           id: todo.id,

@@ -1,7 +1,7 @@
 <li [class.editing]="editMode">
   <div class="view">
     <input type="checkbox"
-           (change)="starTodo(todo)"
+           (change)="toggleTodo(todo)"
            [(ngModel)]="todo.completed"
            class="toggle">
     <label (dblclick)="foo()">{{todo.name}}</label>
