@@ -2,18 +2,19 @@
 import { List } from 'immutable';
 import { ITodoAction } from '../actions';
 import { Todo as TodoModel} from '../todo';
+import { ADD, REMOVE, SAVE, TOGGLE, TOGGLE_ALL, CLEAR_COMPLETED  } from '../action-constants';
 
 export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITodoAction) {
   switch (action.type) {
-    case 'ADD':
+    case ADD:
       return state.push({
         id: action.id,
         name: action.name,
         completed: false
       });
-    case 'REMOVE':
+    case REMOVE:
       return state.delete(findIndexById(action));
-    case 'SAVE':
+    case SAVE:
       return (<any>state).update(findIndexById(action), (todo) => {
         return {
           id: todo.id,
@@ -21,7 +22,7 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
           completed: todo.completed
         };
       });
-    case 'TOGGLE':
+    case TOGGLE:
       return (<any>state).update(findIndexById(action), (todo) => {
         return {
           id: todo.id,
@@ -29,7 +30,7 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
           completed: !todo.completed
         };
       });
-    case 'TOGGLE_ALL':
+    case TOGGLE_ALL:
       return (<any>state).map(function(todo) {
         return {
           id: todo.id,
@@ -37,7 +38,7 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
           completed: action.completed
         };
     });
-    case 'CLEAR_COMPLETED':
+    case CLEAR_COMPLETED:
       return (<any>state).filter(function(todo) {
         return !todo.completed
       });
