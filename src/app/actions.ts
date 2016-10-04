@@ -1,4 +1,3 @@
-import { Todo } from './todo';
 import { ADD, REMOVE, SAVE, TOGGLE, TOGGLE_ALL, CLEAR_COMPLETED, SET_VISIBILITY_FILTER } from './action-constants';
 
 export interface ITodoAction {
@@ -19,7 +18,7 @@ export function addTodo(name: string, id: number): ITodoAction {
 export function clearCompleted(): ITodoAction {
   return {
     type: CLEAR_COMPLETED
-  }
+  };
 }
 
 export function removeTodo(id: number): ITodoAction {
@@ -51,9 +50,9 @@ export function toggleAllTodos(value: boolean): ITodoAction {
   };
 }
 
-export function setVisibilityFilter (filter) {
+export function setVisibilityFilter (filter: string) {
   return {
     type: SET_VISIBILITY_FILTER,
     filter
-  }
+  };
 }

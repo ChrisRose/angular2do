@@ -1,9 +1,9 @@
-import { Directive, OnInit, ElementRef, Renderer} from "@angular/core";
+import { AfterViewInit, Directive, ElementRef, Renderer} from '@angular/core';
 
 @Directive({
-    selector: "[todo-focus]"
+    selector: '[appTodoFocus]'
 })
-export class TodoFocusDirective {
+export class TodoFocusDirective implements AfterViewInit {
   constructor(private _el: ElementRef, private renderer: Renderer) {}
 
   ngAfterViewInit() {

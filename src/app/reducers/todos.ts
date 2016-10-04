@@ -4,6 +4,10 @@ import { ITodoAction } from '../actions';
 import { Todo as TodoModel} from '../todo';
 import { ADD, REMOVE, SAVE, TOGGLE, TOGGLE_ALL, CLEAR_COMPLETED  } from '../action-constants';
 
+function findIndexById(state, action) {
+  return state.findIndex((todo) => todo.id === action.id);
+}
+
 export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITodoAction) {
   switch (action.type) {
     case ADD:
@@ -13,9 +17,9 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
         completed: false
       });
     case REMOVE:
-      return state.delete(findIndexById(action));
+      return state.delete(findIndexById(state, action));
     case SAVE:
-      return (<any>state).update(findIndexById(action), (todo) => {
+      return (<any>state).update(findIndexById(state, action), (todo) => {
         return {
           id: todo.id,
           name: todo.name,
@@ -23,7 +27,7 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
         };
       });
     case TOGGLE:
-      return (<any>state).update(findIndexById(action), (todo) => {
+      return (<any>state).update(findIndexById(state, action), (todo) => {
         return {
           id: todo.id,
           name: todo.name,
@@ -40,14 +44,9 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
     });
     case CLEAR_COMPLETED:
       return (<any>state).filter(function(todo) {
-        return !todo.completed
+        return !todo.completed;
       });
     default:
       return state;
-  }
-
-  function findIndexById(action) {
-    let index = state.findIndex((todo) => todo.id === action.id);
-    return index;
   }
 }

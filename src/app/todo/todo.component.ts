@@ -12,13 +12,13 @@ export class TodoComponent implements OnInit {
   todo: Todo;
 
   @Output()
-  onRemoveTodo: EventEmitter = new EventEmitter();
+  onRemoveTodo: EventEmitter<Todo> = new EventEmitter();
 
   @Output()
-  onToggleTodo: EventEmitter = new EventEmitter();
+  onToggleTodo: EventEmitter<Todo> = new EventEmitter();
 
   @Output()
-  onSaveTodo: EventEmitter = new EventEmitter();
+  onSaveTodo: EventEmitter<Todo> = new EventEmitter();
 
   editMode: boolean = false;
 

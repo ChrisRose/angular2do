@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { TodoStore } from '../todo.store';
 import { Todo } from '../todo';
@@ -14,11 +14,11 @@ import { addTodo,
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
     case 'SHOW_ALL':
-      return todos
+      return todos;
     case 'SHOW_ACTIVE':
-      return todos.filter(t => !t.completed)
+      return todos.filter(t => !t.completed);
     case 'SHOW_COMPLETED':
-      return todos.filter(t => t.completed)
+      return todos.filter(t => t.completed);
   }
 };
 
@@ -41,7 +41,7 @@ export class TodoListComponent implements OnInit {
 
     this.TodoStore.store.subscribe(() => {
       this.todos = getVisibleTodos(this.TodoStore.todos, this.TodoStore.filter);
-      this.incompleteCount = this.TodoStore.todos.filter(t => !t.completed).size
+      this.incompleteCount = this.TodoStore.todos.filter(t => !t.completed).size;
     });
   }
 
@@ -50,17 +50,17 @@ export class TodoListComponent implements OnInit {
       let filter = data.filter;
       if (data.filter === 'completed') {
         filter = 'SHOW_COMPLETED';
-      } else if (filter === 'active'){
+      } else if (filter === 'active') {
         filter = 'SHOW_ACTIVE';
       } else {
         filter = 'SHOW_ALL';
       }
 
       this.TodoStore.dispatch(setVisibilityFilter(filter));
-    })
+    });
   }
 
-  addTodo(todo: string):void {
+  addTodo(todo: string): void {
     this.TodoStore.dispatch(addTodo(todo, this.todoID++));
   }
 
@@ -68,28 +68,28 @@ export class TodoListComponent implements OnInit {
     this.TodoStore.dispatch(toggleTodo(todo.id));
   }
 
-  saveTodo(todo: Todo):void {
+  saveTodo(todo: Todo): void {
     this.TodoStore.dispatch(saveTodo(todo.name, todo.id));
   }
 
-  removeTodo(todo: Todo):void {
+  removeTodo(todo: Todo): void {
     this.TodoStore.dispatch(removeTodo(todo.id));
   }
 
-  allCompleted():boolean {
+  allCompleted(): boolean {
     if (this.TodoStore.todos.size === 0) { return false; }
-    return this.TodoStore.todos.filter(t => t.completed).size === this.TodoStore.todos.size
+    return this.TodoStore.todos.filter(t => t.completed).size === this.TodoStore.todos.size;
   }
 
-  isCompleted():number {
-    return this.TodoStore.todos.filter(t => t.completed).size
+  isCompleted(): number {
+    return this.TodoStore.todos.filter(t => t.completed).size;
   }
 
-  toggleAllTodos(value: boolean):void {
+  toggleAllTodos(value: boolean): void {
     this.TodoStore.dispatch(toggleAllTodos(value));
   }
 
-  clearCompleted():void {
+  clearCompleted(): void {
     this.TodoStore.dispatch(clearCompleted());
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TodoStore } from '../todo.store';
-import { setVisibilityFilter } from '../actions';
 
 @Component({
   selector: 'app-filter-link',
