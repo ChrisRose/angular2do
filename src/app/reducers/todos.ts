@@ -29,6 +29,18 @@ export function reducer(state: List<TodoModel> = List<TodoModel>(), action: ITod
           completed: !todo.completed
         };
       });
+    case 'TOGGLE_ALL':
+      return (<any>state).map(function(todo) {
+        return {
+          id: todo.id,
+          name: todo.name,
+          completed: action.completed
+        };
+    });
+    case 'CLEAR_COMPLETED':
+      return (<any>state).filter(function(todo) {
+        return !todo.completed
+      });
     default:
       return state;
   }

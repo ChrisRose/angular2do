@@ -3,6 +3,13 @@
   <app-add-todo (onAddTodo)="addTodo($event)"></app-add-todo>
 </header>
 <section class="main">
+  <input type="checkbox"
+          #toggleAll
+         [checked]="allCompleted()"
+         (change)="toggleAllTodos(toggleAll.checked)"
+         class="toggle-all"
+         name="toggle-all">
+	<label for="toggle-all">Mark all as complete</label>
   <ul class="todo-list">
     <app-todo *ngFor="let todo of todos" [todo]="todo"
               (onRemoveTodo)="removeTodo($event)"
@@ -16,7 +23,9 @@
     <strong>{{incompleteCount}}</strong> item left
   </span>
   <ul class="filters">
-    <li><app-filter-link filter="">All</app-filter-link></li>
+    <li><app-filter-link filter="all">All</app-filter-link></li>
+    <li><app-filter-link filter="active">Active</app-filter-link></li>
     <li><app-filter-link filter="completed">Completed</app-filter-link></li>
   </ul>
+  <button *ngIf="isCompleted()" (click)="clearCompleted()" class="clear-completed">Clear completed</button>
 </footer>

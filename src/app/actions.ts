@@ -2,8 +2,9 @@ import { Todo } from './todo';
 
 export interface ITodoAction {
   type: string;
-  id: number;
+  id?: number;
   name?: string;
+  completed?: boolean;
 }
 
 export function addTodo(name: string, id: number): ITodoAction {
@@ -12,6 +13,12 @@ export function addTodo(name: string, id: number): ITodoAction {
     id,
     name
   };
+}
+
+export function clearCompleted(): ITodoAction {
+  return {
+    type: 'CLEAR_COMPLETED'
+  }
 }
 
 export function removeTodo(id: number): ITodoAction {
@@ -33,6 +40,13 @@ export function toggleTodo(id: number): ITodoAction {
   return {
     type: 'TOGGLE',
     id
+  };
+}
+
+export function toggleAllTodos(value: boolean): ITodoAction {
+  return {
+    type: 'TOGGLE_ALL',
+    completed: value
   };
 }
 

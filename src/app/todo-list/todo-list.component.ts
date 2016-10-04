@@ -1,14 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params }   from '@angular/router';
-import { Location }                 from '@angular/common';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import { TodoStore } from '../todo.store';
 import { Todo } from '../todo';
-import { addTodo, toggleTodo, removeTodo, saveTodo, setVisibilityFilter } from '../actions';
+import { addTodo,
+         toggleTodo,
+         toggleAllTodos,
+         removeTodo,
+         saveTodo,
+         clearCompleted,
+         setVisibilityFilter } from '../actions';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
     case 'SHOW_ALL':
       return todos
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => !t.completed)
     case 'SHOW_COMPLETED':
       return todos.filter(t => t.completed)
   }
@@ -33,20 +41,23 @@ export class TodoListComponent implements OnInit {
 
     this.TodoStore.store.subscribe(() => {
       this.todos = getVisibleTodos(this.TodoStore.todos, this.TodoStore.filter);
-      this.incompleteCount = this.todos.filter(t => !t.completed).size
+      this.incompleteCount = this.TodoStore.todos.filter(t => !t.completed).size
     });
   }
 
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
-      let filter = params['filter'] || 'SHOW_ALL';
-      if (filter === 'completed') {
+    this.route.data.forEach((data: { filter }) => {
+      let filter = data.filter;
+      if (data.filter === 'completed') {
         filter = 'SHOW_COMPLETED';
+      } else if (filter === 'active'){
+        filter = 'SHOW_ACTIVE';
       } else {
         filter = 'SHOW_ALL';
       }
+
       this.TodoStore.dispatch(setVisibilityFilter(filter));
-    });
+    })
   }
 
   addTodo(todo: string):void {
@@ -63,5 +74,22 @@ export class TodoListComponent implements OnInit {
 
   removeTodo(todo: Todo):void {
     this.TodoStore.dispatch(removeTodo(todo.id));
+  }
+
+  allCompleted():boolean {
+    if (this.TodoStore.todos.size === 0) { return false; }
+    return this.TodoStore.todos.filter(t => t.completed).size === this.TodoStore.todos.size
+  }
+
+  isCompleted():number {
+    return this.TodoStore.todos.filter(t => t.completed).size
+  }
+
+  toggleAllTodos(value: boolean):void {
+    this.TodoStore.dispatch(toggleAllTodos(value));
+  }
+
+  clearCompleted():void {
+    this.TodoStore.dispatch(clearCompleted());
   }
 }

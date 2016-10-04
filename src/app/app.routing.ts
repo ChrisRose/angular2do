@@ -6,11 +6,29 @@ import { TodoListComponent }      from './todo-list/todo-list.component';
 const appRoutes: Routes = [
   {
     path: '',
-    component: TodoListComponent
+    redirectTo: 'all',
+    pathMatch: 'full'
   },
   {
-    path: ':filter',
-    component: TodoListComponent
+    path: 'all',
+    component: TodoListComponent,
+    data: {
+      filter: 'all'
+    }
+  },
+  {
+    path: 'active',
+    component: TodoListComponent,
+    data: {
+      filter: 'active'
+    }
+  },
+  {
+    path: 'completed',
+    component: TodoListComponent,
+    data: {
+      filter: 'completed'
+    }
   }
 ];
 
