@@ -16,7 +16,10 @@ export class AddTodoComponent implements OnInit {
   }
 
   addTodo(todo: string, todoInput): void {
-    this.onAddTodo.next(todo);
+    if (todo === '') {
+      return;
+    }
+    this.onAddTodo.next(todo.trim());
     todoInput.value = '';
     todoInput.focus();
   }
