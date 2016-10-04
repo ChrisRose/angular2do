@@ -1,10 +1,10 @@
-import { Angular2ContactListPage } from './app.po';
+import { Angular2TodoListPage } from './app.po';
 
 describe('angular2-contact-list App', function() {
-  let page: Angular2ContactListPage;
+  let page: Angular2TodoListPage;
 
   beforeEach(() => {
-    page = new Angular2ContactListPage();
+    page = new Angular2TodoListPage();
   });
 
   it('should display message saying app works', () => {

@@ -12,6 +12,7 @@ import { FilterLinkComponent } from './filter-link/filter-link.component'
 
 import { routing } from './app.routing';
 import { AddTodoComponent } from './add-todo/add-todo.component';
+import { TodoFocusDirective } from './todo-focus.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AddTodoComponent } from './add-todo/add-todo.component';
     TodoListComponent,
     TodoComponent,
     FilterLinkComponent,
-    AddTodoComponent
+    AddTodoComponent,
+    TodoFocusDirective
   ],
   imports: [
     BrowserModule,

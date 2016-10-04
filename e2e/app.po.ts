@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor/globals';
 
-export class Angular2ContactListPage {
+export class Angular2TodoListPage {
   navigateTo() {
     return browser.get('/');
   }

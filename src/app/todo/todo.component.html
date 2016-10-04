@@ -8,9 +8,11 @@
     <button class="destroy" (click)="doRemoveTodo(todo)"></button>
   </div>
   <input type="text"
+         *ngIf="editMode"
          [(ngModel)]="todo.name"
          (keyup)="cancelEdit($event.keyCode)"
          (keyup.enter)="saveTodo(todo)"
          (focusout)="saveTodo(todo)"
+         todo-focus
          class="edit">
 </li>
