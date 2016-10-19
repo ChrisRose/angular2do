@@ -1,4 +1,7 @@
-# Angular2 TodoMVC
+# Angular2Do
+
+## Description
+[TodoMVC](http://todomvc.com/) built with Angular 2 + Redux.
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
 
