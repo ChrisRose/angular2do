@@ -8,11 +8,8 @@ import { Todo } from '../todo';
 
 let fixture: ComponentFixture<TodoComponent>;
 let comp: TodoComponent;
-let de: DebugElement;
-let el: HTMLElement;
-let destroyEl: DebugElement;
-let toggleEl: DebugElement;
 let todo: Todo;
+let page: Page;
 
 beforeEach(() => {
   // refine the test module by declaring the test component
@@ -21,6 +18,62 @@ beforeEach(() => {
     imports: [FormsModule]
   });
 
+  createComponent();
+});
+
+describe('Component: Todo', () => {
+  it('should create an instance', () => {
+    let component = new TodoComponent();
+    expect(component).toBeTruthy();
+  });
+
+  it('displays the todo name', () => {
+    expect(page.labelEl.nativeElement.textContent).toContain(comp.todo.name);
+  });
+
+  it('should raise onRemoveToDo when todo is removed', () => {
+    let selectedTodo: Todo;
+    comp.onRemoveTodo.subscribe((todo: Todo) => selectedTodo = todo);
+    page.destroyEl.triggerEventHandler('click', null);
+    expect(selectedTodo).toBe(todo);
+  });
+
+  it('should raise onToggleToDo when todo is toggled', () => {
+    let selectedTodo: Todo;
+    comp.onToggleTodo.subscribe((todo: Todo) => selectedTodo = todo);
+    page.toggleEl.triggerEventHandler('change', {
+      target: page.toggleEl.nativeElement
+    });
+    expect(selectedTodo).toBe(todo);
+  });
+
+  it('should set make edit input visible on double-click', () => {
+    page.labelEl.triggerEventHandler('dblclick', null);
+    fixture.detectChanges();
+    let editEl = fixture.debugElement.query(By.css('.edit'));
+    expect(editEl).toBeTruthy();
+  });
+
+  it('should revert todo text on cancel', fakeAsync(() => {
+    let newTodoText: string = 'Watch The Get Down';
+    fixture.detectChanges();
+    page.labelEl.triggerEventHandler('dblclick', null);
+    fixture.detectChanges();
+    let editEl = fixture.debugElement.query(By.css('.edit'));
+    editEl.nativeElement.value = newTodoText;
+    editEl.nativeElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(page.labelEl.nativeElement.textContent).toContain(newTodoText); // todo text changed
+    editEl.triggerEventHandler('keyup', {
+      keyCode: 27
+    });
+    fixture.detectChanges();
+    expect(page.labelEl.nativeElement.textContent).toContain(comp.todo.name); // todo text reverted
+  }));
+});
+
+/** Create the TodoComponent, initialize it, set test variables  */
+function createComponent() {
   // create component and test fixture
   fixture = TestBed.createComponent(TodoComponent);
 
@@ -33,65 +86,21 @@ beforeEach(() => {
     completed: false
   };
   comp.todo = todo;
-});
 
-describe('Component: Todo', () => {
-  it('should create an instance', () => {
-    let component = new TodoComponent();
-    expect(component).toBeTruthy();
-  });
+  page = new Page();
 
-  it('displays the todo name', () => {
-    // trigger change detection to update the view
-    fixture.detectChanges();
-    // query for the name <label> by CSS element selector
-    de = fixture.debugElement.query(By.css('label'));
-    el = de.nativeElement;
-    expect(el.textContent).toContain(comp.todo.name);
-  });
+  fixture.detectChanges();
+  page.addPageElements();
+}
 
-  it('should raise onRemoveToDo when todo is removed', () => {
-    let selectedTodo: Todo;
-    comp.onRemoveTodo.subscribe((todo: Todo) => selectedTodo = todo);
-    destroyEl = fixture.debugElement.query(By.css('.destroy'));
-    destroyEl.triggerEventHandler('click', null);
-    expect(selectedTodo).toBe(todo);
-  });
+class Page {
+  labelEl: DebugElement;
+  destroyEl: DebugElement;
+  toggleEl: DebugElement;
 
-  it('should raise onToggleToDo when todo is toggled', () => {
-    let selectedTodo: Todo;
-    comp.onToggleTodo.subscribe((todo: Todo) => selectedTodo = todo);
-    toggleEl = fixture.debugElement.query(By.css('.toggle'));
-    toggleEl.triggerEventHandler('change', {
-      target: toggleEl.nativeElement
-    });
-    expect(selectedTodo).toBe(todo);
-  });
-
-  it('should set make edit input visible on double-click', () => {
-    fixture.detectChanges();
-    de = fixture.debugElement.query(By.css('label'));
-    de.triggerEventHandler('dblclick', null);
-    fixture.detectChanges();
-    let editEl = fixture.debugElement.query(By.css('.edit'));
-    expect(editEl).toBeTruthy();
-  });
-
-  it('should revert todo text on cancel', fakeAsync(() => {
-    let newTodoText: string = 'Watch The Get Down';
-    fixture.detectChanges();
-    de = fixture.debugElement.query(By.css('label'));
-    de.triggerEventHandler('dblclick', null);
-    fixture.detectChanges();
-    let editEl = fixture.debugElement.query(By.css('.edit'));
-    editEl.nativeElement.value = newTodoText;
-    editEl.nativeElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(de.nativeElement.textContent).toContain(newTodoText); // todo text changed
-    editEl.triggerEventHandler('keyup', {
-      keyCode: 27
-    });
-    fixture.detectChanges();
-    expect(de.nativeElement.textContent).toContain(comp.todo.name); // todo text reverted
-  }));
-});
+  addPageElements() {
+    this.labelEl = fixture.debugElement.query(By.css('label'));
+    this.destroyEl = fixture.debugElement.query(By.css('.destroy'));
+    this.toggleEl = fixture.debugElement.query(By.css('.toggle'));
+  }
+}
