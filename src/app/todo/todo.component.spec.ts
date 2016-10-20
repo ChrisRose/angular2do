@@ -1,3 +1,5 @@
+/// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
+
 import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement }    from '@angular/core';
